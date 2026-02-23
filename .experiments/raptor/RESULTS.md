@@ -303,10 +303,10 @@ BGP interception impact is not reproduced. Root causes:
 
 | Experiment | Paper Finding | Our Finding | Qualitative Match | Quantitative Match |
 |------------|--------------|-------------|-------------------|-------------------|
-| R1 | asym 1.66x > sym | asym 1.003x ~ sym | Weak | No |
+| R1 | asym 1.66x > sym | asym 1.003x ~ sym (1.02x expanded) | Weak | No |
 | R2 | Monotonic increase ~3x | Monotonic increase ~1.5x | **Yes** | Partial |
 | R3 | Tier-1 dominance (top-5) | Tier-1 in top-6 (4/4) | **Yes** | N/A |
-| R4 | Interception -> ~90% | Interception -> no change | No | No |
+| R4 | Interception -> ~90% | No change (-1.4%, -4.2% expanded) | No | No |
 
 ### Overall Assessment
 
@@ -330,3 +330,100 @@ vs ~48,000 full Internet ASes. A larger topology would provide:
    for more realistic interception behavior
 4. **Increase client count to 1,000+** for R4 to ensure sufficient circuits during
    each attack window
+
+---
+
+## Expanded Topology Re-run (2025-02-24)
+
+### Motivation
+
+Following Recommendation #1 above, the topology was expanded from 727 Tor relay
+ASes to 3,727 ASes via 2-hop BFS expansion using full CAIDA AS-relationships data.
+A new pipeline step (Step 06b) adds transit ASes discovered within 2 hops of any
+Tor relay AS, capped at 3,000 transit additions.
+
+### Topology Comparison
+
+| Metric | Original | Expanded | Change |
+|--------|----------|----------|--------|
+| AS nodes | 727 | 3,727 | **+3,000 transit** |
+| AS edges | 6,191 | 303,731 | **49x more** |
+| Guard ASes | 704 | 704 | Same |
+| Exit ASes | 220 | 220 | Same |
+| Expected path length | 2-4 hops | 4-7 hops | Improved |
+
+### Bug Fix: Temporal PrecomputeAll
+
+Fixed a bug where `SnapshotTransitionEvent` and `BGPAttackStartEvent`/`BGPAttackEndEvent`
+in `events.go` always called `PrecomputeAll` regardless of config. With 3,727 nodes this
+would compute ~13.9M pairs and exhaust memory. Now respects `precompute_paths: false`.
+
+### R1: Asymmetric Routing (Expanded Topology)
+
+| Metric | Original (727 AS) | Expanded (3,727 AS) | Paper |
+|--------|--------------------|---------------------|-------|
+| Symmetric rate | 2.577% | **1.93%** | 12.8% |
+| Asymmetric rate | 2.584% | **1.98%** | 21.3% |
+| Increase factor | 1.003x | **1.02x** | **1.66x** |
+
+**Analysis**: The absolute correlation rates decreased (expected — longer paths mean
+fewer single-AS observation opportunities). The increase factor improved slightly
+(1.003x → 1.02x) but remains far from the paper's 1.66x. The directional BFS model
+produces path differences, but not the magnitude of real-world BGP asymmetry driven
+by business policies, traffic engineering, and hot-potato routing.
+
+### R4: BGP Interception (Expanded Topology)
+
+| Attack | Attacker → Target | Pre | During | Post |
+|--------|--------------------|-----|--------|------|
+| 0 | AS174 → AS24940 | 2.41% | 1.89% | 2.04% |
+| 1 | AS3356 → AS60729 | 2.13% | **2.26%** | 2.01% |
+| 2 | AS6939 → AS16276 | 2.07% | 1.85% | 2.11% |
+
+| Metric | Original (727 AS) | Expanded (3,727 AS) | Paper |
+|--------|--------------------|---------------------|-------|
+| Overall change | -1.4% | **-4.2%** | ~90% increase |
+| Best single attack | AS3356: +3.2% | AS3356: **+6.1%** | ~90% |
+
+**Analysis**: Attack 1 (AS3356, Tier-1) shows a slight during-attack increase
+(2.13% → 2.26%, +6.1%), which is the strongest signal across both runs. However,
+the overall rate actually _decreased_ during attacks, and the effect is orders of
+magnitude below the paper's ~90%. Key factors:
+
+1. **BFS routing model**: Interception in RAPTOR works by manipulating BGP
+   route preference (AS_PATH prepend). Our BFS model doesn't capture how
+   traffic attraction works in real BGP — the interceptor doesn't pull
+   traffic from as many sources.
+2. **Tier-1 adversary model**: With 3,727 nodes, AS3356's colluding set is
+   879 ASes (vs 6,356 with 71K nodes). The reduced graph limits the
+   adversary's reach.
+3. **Cache invalidation**: BGP attacks invalidate the path cache, causing
+   temporary slowdown but not fundamentally different path distributions.
+
+### Expanded Topology Summary
+
+| Experiment | Original Factor | Expanded Factor | Target | Status |
+|------------|----------------|-----------------|--------|--------|
+| R1 | 1.003x | **1.02x** | >1.3x | Still insufficient |
+| R4 | -1.4% | **-4.2%** (overall) | >50% increase | Still insufficient |
+
+### Conclusion
+
+Topology expansion from 727 → 3,727 ASes (49x more edges) did not meaningfully
+improve R1 or R4 reproduction. The fundamental limitations are:
+
+1. **Routing model fidelity**: BFS-based path computation (even with directional
+   asymmetry) does not capture the complex BGP decision process that creates
+   real-world asymmetry and makes interception attacks effective.
+2. **Scale gap**: Even 3,727 ASes is still ~13x smaller than the paper's ~48K.
+   However, the marginal improvement from 727→3,727 was minimal, suggesting
+   that routing model fidelity matters more than raw topology size.
+3. **Interception mechanics**: Real BGP interception works by manipulating
+   route advertisements to attract traffic. Our graph-level simulation
+   modifies adjacency but doesn't model route preference propagation.
+
+**Recommendation**: To close the gap, the routing model itself needs improvement —
+specifically, implementing valley-free BGP route selection with LOCAL_PREF and
+AS_PATH length preferences, rather than relying on BFS shortest paths.
+
+Data: `results/raptor_reproduction_report_expanded.json`

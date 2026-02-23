@@ -1,0 +1,66 @@
+{
+  "R1_asymmetric_routing": {
+    "sym_rate": 0.019343800632667232,
+    "asym_rate": 0.019798626649178305,
+    "increase_factor": 1.0235127535249187,
+    "sym_circuits": 7776600,
+    "asym_circuits": 7776600,
+    "sym_correlated": 150429,
+    "asym_correlated": 153966,
+    "paper_reference": {
+      "sym_rate": 0.128,
+      "asym_rate": 0.213,
+      "factor": 1.66,
+      "source": "RAPTOR Figure 4"
+    }
+  },
+  "R4_interception": {
+    "baseline_rate": 0.019798626649178305,
+    "attack_rate": 0.018976802201476222,
+    "increase_pct": -4.15091643609629,
+    "baseline_circuits": 7776600,
+    "attack_circuits": 7776600,
+    "per_attack": [
+      {
+        "attack_idx": 0,
+        "attack_type": "interception",
+        "attacker": "AS174",
+        "target": "AS24940",
+        "pre_rate": 0.02409035435341053,
+        "pre_circuits": 789071,
+        "during_rate": 0.018911948024699844,
+        "during_circuits": 552878,
+        "post_rate": 0.0203737850261753,
+        "post_circuits": 5797450
+      },
+      {
+        "attack_idx": 1,
+        "attack_type": "interception",
+        "attacker": "AS3356",
+        "target": "AS60729",
+        "pre_rate": 0.02125097157919638,
+        "pre_circuits": 2367280,
+        "during_rate": 0.022603963598061022,
+        "during_circuits": 553487,
+        "post_rate": 0.020093729804209592,
+        "post_circuits": 4218082
+      },
+      {
+        "attack_idx": 2,
+        "attack_type": "interception",
+        "attacker": "AS6939",
+        "target": "AS16276",
+        "pre_rate": 0.02066423167879224,
+        "pre_circuits": 3949917,
+        "during_rate": 0.01848965980683413,
+        "during_circuits": 555067,
+        "post_rate": 0.02114057287145182,
+        "post_circuits": 2634413
+      }
+    ],
+    "paper_reference": {
+      "attack_rate_approx": 0.9,
+      "source": "RAPTOR Section 5"
+    }
+  }
+}
