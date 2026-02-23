@@ -1,0 +1,68 @@
+# R1: Symmetric routing baseline (RAPTOR Figure 4 comparison)
+simulation:
+  mode: "longitudinal"
+  duration: "90d"
+  seed: 42
+  tick_interval_ms: 60000
+  time_scale: 0
+  asymmetric_routing: false
+
+network:
+  as_model: "../tor-anal/output/snapshots/as_model_simplified_20250101.json"
+  as_edges: "../tor-anal/data/model_edges_20250101.json"
+  as_geo_map: "../tor-anal/output/as_geo_map.json"
+  weights:
+    wgg: 0.5869
+    wgm: 1.0
+    wgd: 0.5869
+    wee: 0.5869
+    wem: 0.0
+    weg: 0.4131
+    wed: 0.5869
+    wmg: 0.4131
+    wme: 0.4131
+    wmm: 1.0
+    wmd: 0.4131
+
+temporal:
+  enabled: true
+  snapshot_dir: "../tor-anal/output/snapshots"
+  model_pattern: "as_model_simplified_%s.json"
+  edges_dir: "../tor-anal/data"
+  edges_pattern: "model_edges_%s.json"
+  dates:
+    - "20250101"
+    - "20250201"
+    - "20250301"
+  interval_days: 30
+
+bgp:
+  enabled: false
+
+relay_adversary:
+  enabled: false
+
+clients:
+  count: 200
+  distribution: "uniform"
+  guard:
+    init_mode: "fresh_start"
+    max_sample_size: 60
+    lifetime_days_min: 30
+    lifetime_days_max: 60
+    n_primary_guards: 3
+  circuit:
+    max_dirtiness_sec: 600
+    circuits_per_client: 3
+
+hidden_service:
+  enabled: false
+
+observer:
+  mode: "passive"
+  scope: "global"
+  controlled_ases: []
+
+output:
+  observation_log: "output/raptor/obs_sym.ndjson"
+  ground_truth_log: "output/raptor/gt_sym.ndjson"

@@ -1,0 +1,60 @@
+simulation:
+  mode: "longitudinal"
+  duration: "180d"    # 6 months (Johnson et al.)
+  seed: 42
+  tick_interval_ms: 60000
+  time_scale: 0
+  asymmetric_routing: true
+
+network:
+  as_model: "../tor-anal/output/snapshots/as_model_simplified_20250101.json"
+  as_edges: "../tor-anal/data/model_edges_20250101.json"
+  as_geo_map: "../tor-anal/output/as_geo_map.json"
+  weights:
+    wgg: 0.5869
+    wgm: 1.0
+    wgd: 0.5869
+    wee: 0.5869
+    wem: 0.0
+    weg: 0.4131
+    wed: 0.5869
+    wmg: 0.4131
+    wme: 0.4131
+    wmm: 1.0
+    wmd: 0.4131
+
+relay_adversary:
+  enabled: true
+  bandwidth_kb: 102400     # 100 MiB/s
+  guard_exit_ratio: 5.0    # 5:1 → Guard 83.3%, Exit 16.7%
+
+temporal:
+  enabled: false
+
+bgp:
+  enabled: false
+
+clients:
+  count: 200
+  distribution: "uniform"
+  guard:
+    init_mode: "fresh_start"
+    max_sample_size: 60
+    lifetime_days_min: 30
+    lifetime_days_max: 60
+    n_primary_guards: 3
+  circuit:
+    max_dirtiness_sec: 600
+    circuits_per_client: 3
+
+hidden_service:
+  enabled: false
+
+observer:
+  mode: "passive"
+  scope: "global"
+  controlled_ases: []
+
+output:
+  observation_log: "output/observations_relay_adv.ndjson"
+  ground_truth_log: "output/ground_truth_relay_adv.ndjson"

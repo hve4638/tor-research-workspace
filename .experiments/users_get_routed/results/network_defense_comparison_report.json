@@ -1,0 +1,385 @@
+{
+  "overall": [
+    {
+      "total_circuits": 1944150,
+      "correlated_circuits": 37572,
+      "correlation_rate": 0.019325669315639227,
+      "scenario": "vanilla",
+      "reduction_pct": 0.0
+    },
+    {
+      "total_circuits": 1944150,
+      "correlated_circuits": 35856,
+      "correlation_rate": 0.01844302137180773,
+      "scenario": "counter_raptor",
+      "reduction_pct": 4.567230916640058
+    },
+    {
+      "total_circuits": 1944150,
+      "correlated_circuits": 12,
+      "correlation_rate": 6.172363243576885e-06,
+      "scenario": "astoria",
+      "reduction_pct": 99.96806132226126
+    },
+    {
+      "total_circuits": 1944150,
+      "correlated_circuits": 5,
+      "correlation_rate": 2.5718180181570353e-06,
+      "scenario": "combined",
+      "reduction_pct": 99.98669221760886
+    }
+  ],
+  "client_compromise": [
+    {
+      "total_clients": 50,
+      "compromised_clients": 34,
+      "compromise_rate": 0.68,
+      "scenario": "vanilla",
+      "reduction_pct": 0.0
+    },
+    {
+      "total_clients": 50,
+      "compromised_clients": 34,
+      "compromise_rate": 0.68,
+      "scenario": "counter_raptor",
+      "reduction_pct": 0.0
+    },
+    {
+      "total_clients": 50,
+      "compromised_clients": 9,
+      "compromise_rate": 0.18,
+      "scenario": "astoria",
+      "reduction_pct": 73.52941176470587
+    },
+    {
+      "total_clients": 50,
+      "compromised_clients": 5,
+      "compromise_rate": 0.1,
+      "scenario": "combined",
+      "reduction_pct": 85.29411764705883
+    }
+  ],
+  "trends": {
+    "vanilla": {
+      "mean": 0.019324100258415647,
+      "std": 0.003356174473661792,
+      "min": 0.016949074074074075,
+      "max": 0.0231636587999383,
+      "n_periods": 3,
+      "slope": 0.0031072923629321125,
+      "trend": "increasing"
+    },
+    "counter_raptor": {
+      "mean": 0.018442571073824608,
+      "std": 0.00322347077808578,
+      "min": 0.016219135802469135,
+      "max": 0.022139441616535555,
+      "n_periods": 3,
+      "slope": 0.0025851529070332105,
+      "trend": "increasing"
+    },
+    "astoria": {
+      "mean": 4.6289155112230855e-06,
+      "std": 1.2368893627554361e-09,
+      "min": 4.627487274409996e-06,
+      "max": 4.6296296296296296e-06,
+      "n_periods": 3,
+      "slope": -1.0711776098175183e-09,
+      "trend": "stable"
+    },
+    "combined": {
+      "mean": 2.571778421436501e-06,
+      "std": 1.7821514592726716e-06,
+      "min": 1.542495758136665e-06,
+      "max": 4.6296296296296296e-06,
+      "n_periods": 3,
+      "slope": -1.5435669357464825e-06,
+      "trend": "stable"
+    }
+  },
+  "attack_impact": [
+    {
+      "total_circuits": 324000,
+      "correlated_circuits": 5966,
+      "correlation_rate": 0.01841358024691358,
+      "attack_idx": 0.0,
+      "phase": "pre"
+    },
+    {
+      "total_circuits": 5550,
+      "correlated_circuits": 92,
+      "correlation_rate": 0.016576576576576577,
+      "attack_idx": 0.0,
+      "phase": "during"
+    },
+    {
+      "total_circuits": 1614750,
+      "correlated_circuits": 31514,
+      "correlation_rate": 0.019516333797801516,
+      "attack_idx": 0.0,
+      "phase": "post"
+    },
+    {
+      "total_circuits": 972000,
+      "correlated_circuits": 16931,
+      "correlation_rate": 0.01741872427983539,
+      "attack_idx": 1.0,
+      "phase": "pre"
+    },
+    {
+      "total_circuits": 10950,
+      "correlated_circuits": 213,
+      "correlation_rate": 0.019452054794520546,
+      "attack_idx": 1.0,
+      "phase": "during"
+    },
+    {
+      "total_circuits": 961350,
+      "correlated_circuits": 20429,
+      "correlation_rate": 0.021250325063712487,
+      "attack_idx": 1.0,
+      "phase": "post"
+    },
+    {
+      "total_circuits": 1296000,
+      "correlated_circuits": 22556,
+      "correlation_rate": 0.01740432098765432,
+      "attack_idx": 2.0,
+      "phase": "pre"
+    },
+    {
+      "total_circuits": 21750,
+      "correlated_circuits": 695,
+      "correlation_rate": 0.03195402298850575,
+      "attack_idx": 2.0,
+      "phase": "during"
+    },
+    {
+      "total_circuits": 626550,
+      "correlated_circuits": 14322,
+      "correlation_rate": 0.022858510892985396,
+      "attack_idx": 2.0,
+      "phase": "post"
+    }
+  ],
+  "cdf": {
+    "vanilla": {
+      "total_clients": 50,
+      "compromised_clients": 34,
+      "cdf_days": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.006944444444444444,
+        0.006944444444444444,
+        0.013888888888888888,
+        0.027777777777777776,
+        0.04861111111111111,
+        0.0625,
+        0.09027777777777778,
+        0.14583333333333334,
+        0.1527777777777778,
+        0.1527777777777778,
+        0.22916666666666666,
+        0.6944444444444444,
+        1.9097222222222223,
+        30.03472222222222,
+        30.11111111111111,
+        33.145833333333336,
+        35.65972222222222,
+        37.88194444444444,
+        38.88194444444444,
+        50.638888888888886,
+        52.423611111111114,
+        53.041666666666664,
+        54.15277777777778,
+        56.96527777777778,
+        57.00694444444444,
+        58.583333333333336,
+        58.833333333333336,
+        59.541666666666664,
+        60.0625
+      ],
+      "cdf_fraction": [
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.22,
+        0.24,
+        0.26,
+        0.28,
+        0.3,
+        0.32,
+        0.34,
+        0.36,
+        0.38,
+        0.4,
+        0.42,
+        0.44,
+        0.46,
+        0.48,
+        0.5,
+        0.52,
+        0.54,
+        0.56,
+        0.58,
+        0.6,
+        0.62,
+        0.64,
+        0.66,
+        0.68
+      ]
+    },
+    "counter_raptor": {
+      "total_clients": 50,
+      "compromised_clients": 34,
+      "cdf_days": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.006944444444444444,
+        0.006944444444444444,
+        0.013888888888888888,
+        0.034722222222222224,
+        0.05555555555555555,
+        0.06944444444444445,
+        0.1527777777777778,
+        0.1527777777777778,
+        0.16666666666666666,
+        0.2847222222222222,
+        11.92361111111111,
+        15.041666666666666,
+        30.03472222222222,
+        30.208333333333332,
+        34.15972222222222,
+        35.638888888888886,
+        37.736111111111114,
+        51.604166666666664,
+        52.81944444444444,
+        52.833333333333336,
+        53.041666666666664,
+        54.13194444444444,
+        56.96527777777778,
+        57.00694444444444,
+        58.416666666666664,
+        58.638888888888886,
+        59.548611111111114,
+        60.013888888888886
+      ],
+      "cdf_fraction": [
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18,
+        0.2,
+        0.22,
+        0.24,
+        0.26,
+        0.28,
+        0.3,
+        0.32,
+        0.34,
+        0.36,
+        0.38,
+        0.4,
+        0.42,
+        0.44,
+        0.46,
+        0.48,
+        0.5,
+        0.52,
+        0.54,
+        0.56,
+        0.58,
+        0.6,
+        0.62,
+        0.64,
+        0.66,
+        0.68
+      ]
+    },
+    "astoria": {
+      "total_clients": 50,
+      "compromised_clients": 9,
+      "cdf_days": [
+        4.951388888888889,
+        14.993055555555555,
+        44.99305555555556,
+        44.99305555555556,
+        59.99305555555556,
+        59.99305555555556,
+        59.99305555555556,
+        59.99305555555556,
+        59.99305555555556
+      ],
+      "cdf_fraction": [
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18
+      ]
+    },
+    "combined": {
+      "total_clients": 50,
+      "compromised_clients": 5,
+      "cdf_days": [
+        14.993055555555555,
+        14.993055555555555,
+        29.208333333333332,
+        44.99305555555556,
+        59.99305555555556
+      ],
+      "cdf_fraction": [
+        0.02,
+        0.04,
+        0.06,
+        0.08,
+        0.1
+      ]
+    }
+  },
+  "stream_compromise": {
+    "vanilla": {
+      "total_circuits": 1944150,
+      "compromised_circuits": 37572,
+      "overall_fraction": 0.019325669315639227
+    },
+    "counter_raptor": {
+      "total_circuits": 1944150,
+      "compromised_circuits": 35856,
+      "overall_fraction": 0.01844302137180773
+    },
+    "astoria": {
+      "total_circuits": 1944150,
+      "compromised_circuits": 12,
+      "overall_fraction": 6.172363243576885e-06
+    },
+    "combined": {
+      "total_circuits": 1944150,
+      "compromised_circuits": 5,
+      "overall_fraction": 2.5718180181570353e-06
+    }
+  }
+}

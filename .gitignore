@@ -1,2 +1,12 @@
+.venv/
+venv/
+__pycache__/
+reference/
+data/
+output/
 .omc/
+.omx/
+.sisyphus/
 
+.archive/
+!.archive/docs/
